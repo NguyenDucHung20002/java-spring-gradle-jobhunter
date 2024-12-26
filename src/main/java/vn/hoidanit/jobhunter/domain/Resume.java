@@ -1,42 +1,42 @@
 package vn.hoidanit.jobhunter.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import vn.hoidanit.jobhunter.util.SecurityUtil;
-import vn.hoidanit.jobhunter.util.constant.GenderEnum;
+import vn.hoidanit.jobhunter.util.constant.ResumeStateEnum;
 
 import java.time.Instant;
 
 @Entity
-@Table(name = "users")
-@Setter
+@Table(name = "resumes")
 @Getter
-public class User {
+@Setter
+public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    @NotBlank(message = "Email không được để trống")
+
     private String email;
-    @NotBlank(message = "Password không được để trống")
-    private String password;
-    private int age;
+
+    private String url;
+
     @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
-    private String address;
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String refreshToken;
+    private ResumeStateEnum status;
+
     private Instant createdAt;
     private Instant updatedAt;
+
     private String createdBy;
     private String updatedBy;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "job_id")
+    private Job job;
 
     @PrePersist
     public void handleBeforeCreate() {

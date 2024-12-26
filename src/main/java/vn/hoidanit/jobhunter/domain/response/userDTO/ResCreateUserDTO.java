@@ -1,4 +1,4 @@
-package vn.hoidanit.jobhunter.domain.response;
+package vn.hoidanit.jobhunter.domain.response.userDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,4 +20,13 @@ public class ResCreateUserDTO {
     private GenderEnum gender;
     private String address;
     private Instant createAt;
+    private CompanyUser company;
+
+    @Setter
+    @Getter
+    public static class CompanyUser {
+        private Long id;
+        private String name;
+    }
+
 }
